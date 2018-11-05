@@ -18,11 +18,11 @@ class Contact {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> Contact = new Map<String, dynamic>();
-    Contact['id'] = this.id;
-    Contact['name'] = this.name;
-    Contact['email'] = this.email;
-    return Contact;
+    final Map<String, dynamic> contact = new Map<String, dynamic>();
+    contact['id'] = this.id;
+    contact['name'] = this.name;
+    contact['email'] = this.email;
+    return contact;
   }
 }
 
