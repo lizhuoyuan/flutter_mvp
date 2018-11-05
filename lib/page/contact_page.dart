@@ -37,9 +37,14 @@ class _ContactPageState extends State<ContactPage> implements View {
         title: Text('mvp_contacts'),
       ),
       body: Container(
-        child: ListView.builder(
-          itemBuilder: _itemBuilder,
-          itemCount: list.length,
+        child: RefreshIndicator(
+          onRefresh: _onRefresh,
+          child: list.length > 0
+              ? ListView.builder(
+                  itemBuilder: _itemBuilder,
+                  itemCount: list.length,
+                )
+              : Center(child: CircularProgressIndicator()),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -60,11 +65,20 @@ class _ContactPageState extends State<ContactPage> implements View {
     );
   }
 
+  /**
+  * 下拉刷新方法,为list重新赋值
+  */
+  Future<Null> _onRefresh() async {
+    _presenter.loadContacts();
+  }
+
   ///更新UI
   @override
-  void onLoadContactsCompete(List<Contact> contacts) {
+  void onLoadContactsCompete(contacts) {
+    print(contacts.toJson());
+
     setState(() {
-      list = contacts;
+      list = contacts.data;
       print('contact size  ${list.length}');
     });
   }
@@ -77,5 +91,10 @@ class _ContactPageState extends State<ContactPage> implements View {
   @override
   setPresenter(Presenter presenter) {
     _presenter = presenter;
+  }
+
+  @override
+  void onLoadContact(contact) {
+    print('onLoadContact');
   }
 }

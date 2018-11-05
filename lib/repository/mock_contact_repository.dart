@@ -9,13 +9,14 @@ import 'package:flutter_mvp/util/http_util.dart';
 
 class MockContactRepository implements ContactRepository {
   @override
-  Future<List<Contact>> fetch() async {
+  Future<Contacts> fetch() async {
     var response = await HttpUtil().get('get_contacts');
-    List contacts = response['data'];
+    return Contacts.fromJson(response);
+  }
 
-    return contacts
-        .map((contact) =>
-            new Contact(name: contact['name'], email: contact['email']))
-        .toList();
+  @override
+  Future<Contact> getContact() async {
+    var response = await HttpUtil().get('get_contact');
+    return Contact.fromJson(response);
   }
 }

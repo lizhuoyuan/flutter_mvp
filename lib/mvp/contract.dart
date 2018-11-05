@@ -4,14 +4,16 @@
  *
  */
 
-import 'package:flutter_mvp/bean/contact.dart';
 import 'package:flutter_mvp/mvp/mvp.dart';
 
 abstract class Presenter implements IPresenter {
   loadContacts();
+  getContact();
 }
 
 abstract class View implements IView<Presenter> {
-  void onLoadContactsCompete(List<Contact> contacts);
+  void onLoadContactsCompete(contacts);
   void onLoadContactsError();
+
+  void onLoadContact(contact);
 }

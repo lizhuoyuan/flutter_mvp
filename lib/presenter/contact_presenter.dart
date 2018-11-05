@@ -27,7 +27,19 @@ class ContactPresenter implements Presenter {
     _repository.fetch().then((contacts) {
       _view.onLoadContactsCompete(contacts);
     }).catchError((error) {
-      print(error);
+      print('loadContacts error:$error');
+      _view.onLoadContactsError();
+    });
+  }
+
+  @override
+  getContact() {
+    assert(_view != null);
+    _repository.getContact().then((contact) {
+      print(contact.name);
+      _view.onLoadContact(contact);
+    }).catchError((err) {
+      print(err);
       _view.onLoadContactsError();
     });
   }
